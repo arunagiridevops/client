@@ -1,15 +1,11 @@
 version: '3.8'
 services:
   train_service:
-    build:
-      context: ./train
-      dockerfile: dockerfile      
+    image: arun280/train_cpp      
     ports:
       - "9091:9091"
   data_service:
-    build:
-      context: ./database
-      dockerfile: dockerfile      
+    image: arun280/train_python
     ports:
       - "9090:9090"
     environment:
@@ -23,5 +19,7 @@ services:
       MYSQL_DATABASE: railway
       MYSQL_USER: arun
       MYSQL_PASSWORD: root
+    volumes:
+      - ./mysql:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "3306:3306"
