@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  train_service:
+    build:
+      context: ./train
+      dockerfile: dockerfile      
+    ports:
+      - "9091:9091"
+  data_service:
+    build:
+      context: ./database
+      dockerfile: dockerfile      
+    ports:
+      - "9090:9090"
+    environment:
+      - MYSQL_HOST=db  
+
+  db:                         
+    image: mysql           
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: railway
+      MYSQL_USER: arun
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
